@@ -24,12 +24,12 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="Image Upload API",
+    title="Upload de Imagens",
     description=(
         "API REST para captura e armazenamento de imagens via webcam. "
         "Cada sessão possui um UUID único para recuperar as imagens posteriormente."
     ),
-    version="0.1.0",
+    version="0.2.3",
     lifespan=lifespan,
 )
 
