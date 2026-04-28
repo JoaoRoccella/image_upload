@@ -4,6 +4,8 @@ Módulo de banco de dados — inicializa SQLite e a pasta de uploads.
 
 import sqlite3
 from pathlib import Path
+from app.logger import server_log
+
 
 # Caminhos base do projeto
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -47,5 +49,5 @@ def init_db() -> None:
             );
             """
         )
-    print(f"[DB] Banco inicializado em: {DB_PATH}")
-    print(f"[DB] Pasta de uploads: {UPLOADS_DIR}")
+    server_log(f"Banco inicializado em: {DB_PATH}")
+    server_log(f"Pasta de uploads: {UPLOADS_DIR}")
