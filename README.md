@@ -14,8 +14,8 @@ uv sync
 uv run uvicorn app.main:app --reload
 ```
 
-Acesse uma aplicação exemplo em: **http://localhost:8000**
-Documentação interativa (OpenAPI): **http://localhost:8000/docs**
+Acesse uma aplicação exemplo em: **http://localhost:8000**<br>
+Documentação interativa (OpenAPI): **http://localhost:8000/docs**<br>
 Documentação interativa (ReDoc): **http://localhost:8000/redoc**
 
 > O banco de dados (`data.db`) e a pasta de imagens (`uploads/`) são criados automaticamente na primeira execução.
