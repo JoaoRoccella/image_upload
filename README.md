@@ -220,15 +220,39 @@ function getCookie(name) {
 
 ## Segurança
 
-| Medida                  | Detalhe                                                              |
-|-------------------------|----------------------------------------------------------------------|
-| Whitelist de MIME types | Apenas `image/jpeg` e `image/png` são aceitos                        |
-| Verificação de magic bytes | O conteúdo decodificado é verificado contra as assinaturas reais dos formatos |
-| Limite de tamanho       | Máximo de **10 MB** por imagem                                       |
-| Nomes de arquivo        | UUID gerado pelo servidor; o nome enviado pelo cliente é ignorado    |
-| Prevenção de path traversal | Arquivos salvos apenas em `uploads/`, sem aceitar caminhos externos |
-| Session ID              | UUID v4 opaco, sem informação de usuário                             |
-| CORS                    | Configurado para `SameSite=Lax`; origins podem ser restritas em `app/main.py` |
+---
+
+## Automação de Versão e Tags
+
+Este projeto utiliza o **Conventional Commits** e **python-semantic-release** para automatizar a criação de tags e o versionamento.
+
+### Como realizar Commits
+
+Para que a automação funcione, utilize os prefixos padrão:
+
+- `fix:` — Incrementa a versão **patch** (ex: 0.2.2 -> 0.2.3).
+- `feat:` — Incrementa a versão **minor** (ex: 0.2.2 -> 0.3.0).
+- `feat!:` ou `BREAKING CHANGE:` — Incrementa a versão **major** (ex: 0.2.2 -> 1.0.0).
+- `docs:`, `style:`, `refactor:`, `test:`, `chore:` — Não incrementam a versão.
+
+### Como gerar uma nova versão
+
+Para calcular a próxima versão e criar a tag Git automaticamente:
+
+```bash
+# 1. Verifique qual será a próxima versão (Dry Run)
+uv run semantic-release version --print
+
+# 2. Gere a versão, crie a tag e atualize o histórico (Local)
+uv run semantic-release version --no-push
+```
+
+Para realizar o release completo (incluindo push para o origin):
+```bash
+uv run semantic-release version
+```
+
+> **Nota:** O `hatch-vcs` garantirá que a versão no `pyproject.toml` e no metadata da API seja atualizada automaticamente a partir da nova tag criada.
 
 ---
 

@@ -17,6 +17,43 @@ source = "vcs"
 [tool.hatch.build.targets.wheel]
 packages = ["app"]
 
+[tool.semantic_release]
+version_toml = []  # Versão é gerenciada pelas tags via hatch-vcs
+major_on_zero = false
+tag_format = "v{version}"
+logging_use_named_masks = true
+
+[tool.semantic_release.branches.main]
+match = "main"
+
+[tool.semantic_release.changelog]
+template_dir = "templates"
+exclude_commit_patterns = []
+
+[tool.semantic_release.changelog.gatekeeper]
+correspondence = { "feat" = "Feature", "fix" = "Bug Fix", "docs" = "Documentation", "perf" = "Performance" }
+
+[tool.semantic_release.commit_author]
+env = "GIT_COMMIT_AUTHOR"
+default = "semantic-release <semantic-release>"
+
+[tool.semantic_release.commit_parser_options]
+allowed_tags = ["build", "chore", "ci", "docs", "feat", "fix", "perf", "style", "refactor", "test"]
+minor_tags = ["feat"]
+patch_tags = ["fix", "perf"]
+
+[tool.semantic_release.remote]
+name = "origin"
+
+[tool.semantic_release.publish]
+dist_glob_patterns = ["dist/*"]
+upload_to_vcs_release = true
+
 [build-system]
 requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "python-semantic-release>=10.5.3",
+]
