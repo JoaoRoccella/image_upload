@@ -14,7 +14,7 @@ uv sync
 uv run uvicorn app.main:app --reload
 ```
 
-Acesse em: **http://localhost:8000**  
+Acesse uma aplicação exemplo em: **http://localhost:8000**
 Documentação interativa (OpenAPI): **http://localhost:8000/docs**
 Documentação interativa (ReDoc): **http://localhost:8000/redoc**
 
