@@ -1,0 +1,12 @@
+[project]
+name = "image-upload"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.111.0",
+    "uvicorn[standard]>=0.29.0",
+    "aiofiles>=23.2.1",
+    "python-multipart>=0.0.9",
+]
