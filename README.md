@@ -1,6 +1,6 @@
 # Image Upload API
 
-API REST para captura e armazenamento de imagens via webcam, construída com **FastAPI** e **SQLite3**.
+API REST para captura e armazenamento de imagens via webcam.
 
 ---
 

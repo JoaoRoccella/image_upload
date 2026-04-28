@@ -1,12 +1,22 @@
 [project]
 name = "image-upload"
-version = "0.1.0"
-description = "Add your description here"
+description = "API REST para captura e armazenamento de imagens via webcam."
 readme = "README.md"
 requires-python = ">=3.12"
+dynamic = ["version"]
 dependencies = [
     "fastapi>=0.111.0",
     "uvicorn[standard]>=0.29.0",
     "aiofiles>=23.2.1",
     "python-multipart>=0.0.9",
 ]
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
+
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
