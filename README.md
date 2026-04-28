@@ -39,7 +39,9 @@ image_upload/
     │   ├── sessions.py   # GET /sessions/{id}
     │   └── images.py     # POST /images · GET /sessions/{id}/images · GET /images/{id}
     └── static/
-        └── index.html    # Frontend de teste (webcam + galeria)
+        ├── index.html    # Frontend de teste (webcam + galeria)
+        ├── style.css     # Estilos do frontend
+        └── app.js        # Lógica do frontend
 ```
 
 ---
