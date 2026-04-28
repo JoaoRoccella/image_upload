@@ -8,3 +8,9 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Dados
+data.db
+
+# Imagens
+uploads/
