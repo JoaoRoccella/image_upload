@@ -104,10 +104,10 @@ nas capturas seguintes.
 const canvas = document.querySelector('canvas');
 const fullBase64 = canvas.toDataURL('image/jpeg');
 
-// Removendo o prefixo "data:image/jpeg;base64,"
+// 2. Removendo o prefixo "data:image/jpeg;base64,"
 const base64String = fullBase64.split(',')[1];
 
-// 2. Enviar a imagem (sem se preocupar com sessão)
+// 3. Enviar a imagem (sem se preocupar com sessão)
 fetch('/images', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
@@ -115,7 +115,7 @@ fetch('/images', {
 })
   .then(response => response.json())
   .then(data => {
-    // 3. Registrar o session_id em um cookie (válido por 30 dias)
+    // 4. Registrar o session_id em um cookie (válido por 30 dias)
     document.cookie = [
       `wc_session_id=${data.session_id}`,
       'path=/',
@@ -129,10 +129,10 @@ fetch('/images', {
     console.error("Erro no upload:", error);
   });
 
-// 4. Nas chamadas seguintes, o cookie é enviado automaticamente pelo browser
+// 5. Nas chamadas seguintes, o cookie é enviado automaticamente pelo browser
 //    e a API reutilizará a mesma sessão.
 
-// 5. Para listar as imagens da sessão:
+// 6. Para listar as imagens da sessão:
 const sessionId = getCookie('wc_session_id');
 if (sessionId) {
   fetch(`/sessions/${sessionId}/images`)
