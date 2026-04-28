@@ -100,25 +100,50 @@ nas capturas seguintes.
 ### Fluxo recomendado no JavaScript
 
 ```javascript
-// 1. Capturar e enviar a imagem
-const response = await fetch('/images', {
+// 1. Preparação para usar webcapture API
+const canvas = document.querySelector('canvas');
+const fullBase64 = canvas.toDataURL('image/jpeg');
+
+// Removendo o prefixo "data:image/jpeg;base64,"
+const base64String = fullBase64.split(',')[1];
+
+// 2. Enviar a imagem (sem se preocupar com sessão)
+fetch('/images', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ image: base64String, mime_type: 'image/jpeg' }),
-});
+})
+  .then(response => response.json())
+  .then(data => {
+    // 3. Registrar o session_id em um cookie (válido por 30 dias)
+    document.cookie = [
+      `wc_session_id=${data.session_id}`,
+      'path=/',
+      `max-age=${30 * 24 * 3600}`,
+      'SameSite=Lax',
+    ].join('; ');
 
-const data = await response.json();
+    console.log("Upload bem-sucedido!", data);
+  })
+  .catch(error => {
+    console.error("Erro no upload:", error);
+  });
 
-// 2. Registrar o session_id em um cookie (válido por 30 dias)
-document.cookie = [
-  `wc_session_id=${data.session_id}`,
-  'path=/',
-  `max-age=${30 * 24 * 3600}`,
-  'SameSite=Lax',
-].join('; ');
-
-// 3. Nas chamadas seguintes, o cookie é enviado automaticamente pelo browser
+// 4. Nas chamadas seguintes, o cookie é enviado automaticamente pelo browser
 //    e a API reutilizará a mesma sessão.
+
+// 5. Para listar as imagens da sessão:
+const sessionId = getCookie('wc_session_id');
+if (sessionId) {
+  fetch(`/sessions/${sessionId}/images`)
+    .then(response => response.json())
+    .then(data => {
+      console.log("Imagens da sessão:", data);
+    })
+    .catch(error => {
+      console.error("Erro ao listar imagens:", error);
+    });
+}
 ```
 
 ### Comportamento por cenário

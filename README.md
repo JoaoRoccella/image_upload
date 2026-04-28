@@ -166,7 +166,13 @@ A sessão **não precisa ser criada previamente**. Ela é gerada automaticamente
 ### Implementação recomendada em JavaScript
 
 ```javascript
-// 1. Enviar a imagem (sem se preocupar com sessão)
+// 1. Preparação para usar webcapture API
+const canvas = document.querySelector('canvas');
+const fullBase64 = canvas.toDataURL('image/jpeg');
+// Removendo o prefixo "data:image/jpeg;base64,"
+const base64String = fullBase64.split(',')[1];
+
+// 2. Enviar a imagem (sem se preocupar com sessão)
 fetch('/images', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
@@ -179,7 +185,7 @@ fetch('/images', {
   .then(data => {
     // data.session_id sempre estará presente na resposta
 
-    // 2. Persistir o session_id no cookie (renovar a cada upload)
+    // 3. Persistir o session_id no cookie (renovar a cada upload)
     document.cookie = [
       `wc_session_id=${data.session_id}`,
       'path=/',
@@ -193,10 +199,10 @@ fetch('/images', {
     console.error("Erro no upload:", error);
   });
 
-// 3. Nas chamadas seguintes, o browser envia o cookie automaticamente.
+// 4. Nas chamadas seguintes, o browser envia o cookie automaticamente.
 //    A API o lê e reutiliza a sessão correspondente.
 
-// 4. Para listar as imagens da sessão:
+// 5. Para listar as imagens da sessão:
 const sessionId = getCookie('wc_session_id');
 if (sessionId) {
   fetch(`/sessions/${sessionId}/images`)
