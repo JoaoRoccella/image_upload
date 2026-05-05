@@ -19,7 +19,7 @@ def server_log(message: str, level: str = "info") -> None:
     color = colors.get(level.lower(), "cyan")
     
     # Formata o prefixo com a cor e negrito
-    prefix = click.style("SERVER:", fg=color, bold=True)
+    prefix = click.style("BUILD:", fg=color, bold=True)
     
     # Exibe a mensagem
-    click.echo(f"{prefix}   {message}")
+    click.echo(f"{prefix}    {message}")
